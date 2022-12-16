@@ -1,0 +1,51 @@
+.Table {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  overflow-x: auto;
+
+  tr {
+    height: 45px;
+  }
+
+  th,
+  td {
+    padding: 5px;
+    text-align: left;
+  }
+
+  th,
+  td {
+    &.coin {
+      width: 30%;
+
+      div {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        img, .Skeleton--image {
+          margin-right: 10px;
+        }
+      }
+    }
+
+    &.price {
+      width: 20%;
+    }
+
+    &.change1h,
+    &.change24h,
+    &.change7d {
+      width: 10%;
+    }
+
+    &.red {
+      color: red;
+    }
+
+    &.green {
+      color: green;
+    }
+  }
+}
