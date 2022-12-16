@@ -3,9 +3,12 @@
   max-width: 900px;
   margin: 0 auto;
   overflow-x: auto;
+  border-collapse: collapse;
+  margin-top: 50px;
 
   tr {
     height: 45px;
+    border-bottom: 0.5px solid rgb(146, 146, 146);
   }
 
   th,
@@ -24,7 +27,8 @@
         align-items: center;
         gap: 5px;
 
-        img, .Skeleton--image {
+        img,
+        .Skeleton--image {
           margin-right: 10px;
         }
       }
