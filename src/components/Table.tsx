@@ -2,10 +2,10 @@ import cn from "classnames";
 import { API } from "../api/types";
 
 import "../styles/Table.scss";
-import {SkeletonRow, SkeletonImage} from "./Skeleton";
+import { SkeletonRow, SkeletonImage } from "./Skeleton";
 
 type TableProps = {
-  markets: API.Market[];
+  coins: API.Coin[];
   isLoading: boolean;
 };
 
@@ -15,11 +15,11 @@ const TableSkeleton = () => {
       {new Array(10).fill(null).map((_, index) => (
         <tr key={index}>
           <td className="coin">
-                <div>
-                  <SkeletonImage width={20} height={20} rounded />
-                  <SkeletonRow/>
-                </div>
-              </td>
+            <div>
+              <SkeletonImage width={20} height={20} rounded />
+              <SkeletonRow />
+            </div>
+          </td>
           <td className="price">
             <SkeletonRow />
           </td>
@@ -38,7 +38,7 @@ const TableSkeleton = () => {
   );
 };
 
-const Table = ({ markets, isLoading }: TableProps) => {
+const Table = ({ coins, isLoading }: TableProps) => {
   return (
     <table className="Table">
       <thead>
@@ -55,17 +55,17 @@ const Table = ({ markets, isLoading }: TableProps) => {
 
       {!isLoading && (
         <tbody>
-          {markets.map((market, index) => (
+          {coins.map((coin, index) => (
             <tr key={index}>
               <td className="coin">
                 <div>
                   <img
                     width={20}
                     height={20}
-                    src={market.image}
-                    alt={market.name}
+                    src={coin.image}
+                    alt={coin.name}
                   />
-                  <b>{market.name}</b> {market.symbol.toLocaleUpperCase()}
+                  <b>{coin.name}</b> {coin.symbol.toLocaleUpperCase()}
                 </div>
               </td>
               <td className="price">
@@ -73,31 +73,31 @@ const Table = ({ markets, isLoading }: TableProps) => {
                   style: "currency",
                   currency: "USD",
                   maximumFractionDigits: 6,
-                }).format(market.current_price)}
+                }).format(coin.current_price)}
               </td>
               <td
                 className={cn("change1h", {
-                  red: market.price_change_percentage_1h_in_currency < 0,
-                  green: market.price_change_percentage_1h_in_currency > 0,
+                  red: coin.price_change_percentage_1h_in_currency < 0,
+                  green: coin.price_change_percentage_1h_in_currency > 0,
                 })}
               >
-                {market.price_change_percentage_1h_in_currency.toFixed(2)}%
+                {coin.price_change_percentage_1h_in_currency ? `${coin.price_change_percentage_1h_in_currency.toFixed(2)}%` : '-'}
               </td>
               <td
                 className={cn("change24h", {
-                  red: market.price_change_percentage_24h_in_currency < 0,
-                  green: market.price_change_percentage_24h_in_currency > 0,
+                  red: coin.price_change_percentage_24h_in_currency < 0,
+                  green: coin.price_change_percentage_24h_in_currency > 0,
                 })}
               >
-                {market.price_change_percentage_24h_in_currency.toFixed(2)}%
+                {coin.price_change_percentage_24h_in_currency ? `${coin.price_change_percentage_24h_in_currency.toFixed(2)}%` : '-'}
               </td>
               <td
                 className={cn("change7d", {
-                  red: market.price_change_percentage_7d_in_currency < 0,
-                  green: market.price_change_percentage_7d_in_currency > 0,
+                  red: coin.price_change_percentage_7d_in_currency < 0,
+                  green: coin.price_change_percentage_7d_in_currency > 0,
                 })}
               >
-                {market.price_change_percentage_7d_in_currency.toFixed(2)}%
+                {coin.price_change_percentage_7d_in_currency ? `${coin.price_change_percentage_7d_in_currency.toFixed(2)}%` : '-'}
               </td>
             </tr>
           ))}

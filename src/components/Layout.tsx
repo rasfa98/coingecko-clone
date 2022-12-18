@@ -1,7 +1,7 @@
 import "../styles/Layout.scss";
 
 type LayoutProps = {
-  children: JSX.Element | JSX.Element[];
+  children: React.ReactNode;
 };
 
 const Layout = ({ children }: LayoutProps) => {

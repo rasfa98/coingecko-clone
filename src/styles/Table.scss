@@ -1,10 +1,8 @@
 .Table {
   width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
   overflow-x: auto;
   border-collapse: collapse;
-  margin-top: 50px;
+  margin-top: 10px;
 
   tr {
     height: 45px;
@@ -45,11 +43,11 @@
     }
 
     &.red {
-      color: red;
+      color: #f44336;
     }
 
     &.green {
-      color: green;
+      color: #04aa6d;
     }
   }
 }

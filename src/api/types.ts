@@ -1,5 +1,5 @@
 export namespace API {
-  export type Market = {
+  export type Coin = {
     image: string;
     name: string;
     symbol: string;
@@ -7,5 +7,10 @@ export namespace API {
     price_change_percentage_1h_in_currency: number;
     price_change_percentage_24h_in_currency: number;
     price_change_percentage_7d_in_currency: number;
+  };
+
+  export type Category = {
+    category_id: string;
+    name: string;
   };
 }

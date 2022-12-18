@@ -1,0 +1,16 @@
+.Alert {
+    position: absolute;
+    top: 0;
+    background: #f44336;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    left: 0;
+    opacity: 0;
+    transition: opacity .2s ease-out;
+
+    &--visible {
+        opacity: 1;
+    }
+}

@@ -1,13 +1,7 @@
 const fetchResource = (url: string) => {
-  return fetch(url)
-    .then((response) => {
-      try {
-        return response.json();
-      } catch (err) {
-        console.log("Error converting body to JSON");
-      }
-    })
-    .catch((err) => console.log("Error fetching data: ", err));
+  return fetch(url).then((response: any) => {
+    return response.json();
+  });
 };
 
 export default fetchResource;
