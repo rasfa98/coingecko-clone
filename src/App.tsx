@@ -60,11 +60,15 @@ function App() {
     <Layout>
       {error && <Alert message={error}  onRemoved={() => setError(null)} />}
 
+      <h1>Top cryptocurrencies {new Date().getFullYear()}</h1>
+
+      <label htmlFor="category">Category</label>
       <select
+        name='category'
         value={selectedCategory || ""}
         onChange={(e) => setSelectedCategory(e.target.value)}
       >
-        <option value="">None</option>
+        <option value="">All Categories</option>
         {categories.map((category, index) => (
           <option key={index} value={category.category_id}>
             {category.name}

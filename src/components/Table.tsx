@@ -12,7 +12,7 @@ type TableProps = {
 const TableSkeleton = () => {
   return (
     <tbody>
-      {new Array(10).fill(null).map((_, index) => (
+      {new Array(20).fill(null).map((_, index) => (
         <tr key={index}>
           <td className="coin">
             <div>
