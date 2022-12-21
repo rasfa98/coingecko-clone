@@ -2,6 +2,13 @@
 
 Using the free REST API provided by CoinGecko in order to create a top list for cryptocurrencies. The application uses skeleton loading in order to improve the user experience. Some basic error handling has also been added. You can test it on [crypto.rasfa.dev](https://crypto.rasfa.dev) or start it locally.
 
+## Technologies used
+
+- React.js
+- TypeScript
+- Redux Toolkit
+- Sass
+
 ## Start project
 
 ```
