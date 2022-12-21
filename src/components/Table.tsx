@@ -64,6 +64,7 @@ const Table = ({ coins, isLoading }: TableProps) => {
               <td className="coin">
                 <div>
                   <img
+                    loading='lazy'
                     width={20}
                     height={20}
                     src={coin.image}
