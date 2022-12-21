@@ -5,7 +5,7 @@ import "../styles/Table.scss";
 import { SkeletonRow, SkeletonImage } from "./Skeleton";
 
 type TableProps = {
-  coins: API.Coin[];
+  coins?: API.Coin[];
   isLoading: boolean;
 };
 
@@ -55,7 +55,7 @@ const Table = ({ coins, isLoading }: TableProps) => {
 
       {!isLoading && (
         <tbody>
-          {coins.map((coin, index) => (
+          {coins?.map((coin, index) => (
             <tr key={index}>
               <td className="coin">
                 <div>

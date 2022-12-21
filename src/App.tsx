@@ -1,75 +1,47 @@
-import { useEffect, useState, useCallback } from "react";
-import coinsService from "./api/coins";
-import categoriesService from "./api/categories";
+import { useState } from "react";
+import { useCategories, useCoins } from "./api";
 import { API } from "./api/types";
+import Alert from "./components/Alert";
 import Layout from "./components/Layout";
 import Table from "./components/Table";
-import Alert from "./components/Alert";
+import { removeAlert, selectAlerts } from "./app/appSlice";
+import { useAppDispatch, useAppSelector } from "./app/hooks";
 
 import "./styles/App.scss";
 
 function App() {
-  const [coins, setCoins] = useState<API.Coin[]>([]);
-  const [categories, setCategories] = useState<API.Category[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
 
-  const [isLoading, setIsLoading] = useState(false);
+  const { data: coins, isFetching: isLoadingCoins } =
+    useCoins(selectedCategory);
+  const { data: categories, isFetching: isLoadingCategories } = useCategories();
+  const alerts = useAppSelector(selectAlerts);
+  
+  const dispatch = useAppDispatch();
 
-  const getCoinsByCategory = useCallback(async () => {
-    try {
-      setIsLoading(true);
-
-      const coins = await coinsService.get(selectedCategory);
-
-      setCoins(coins);
-      setIsLoading(false);
-    } catch {
-      setError("API Rate limit error.");
-    }
-  }, [selectedCategory]);
-
-  const getInitialData = async () => {
-    try {
-      setIsLoading(true);
-
-      const [coins, categories] = await Promise.all([
-        coinsService.get(),
-        categoriesService.get(),
-      ]);
-
-      setCoins(coins);
-      setCategories(categories);
-      setIsLoading(false);
-    } catch {
-      setError("API Rate limit error.");
-    }
-  };
-
-  useEffect(() => {
-    getInitialData();
-  }, []);
-
-  useEffect(() => {
-    if (selectedCategory !== null) {
-      getCoinsByCategory();
-    }
-  }, [selectedCategory, getCoinsByCategory]);
+  const isLoading = isLoadingCoins || isLoadingCategories;
 
   return (
     <Layout>
-      {error && <Alert message={error}  onRemoved={() => setError(null)} />}
+      {alerts.length > 0 && (
+        <Alert
+          message={alerts[0]?.key}
+          onRemoved={() =>
+            alerts.forEach((a: any) => dispatch(removeAlert(a.id)))
+          }
+        />
+      )}
 
       <h1>Top cryptocurrencies {new Date().getFullYear()}</h1>
 
       <label htmlFor="category">Category</label>
       <select
-        name='category'
+        name="category"
         value={selectedCategory || ""}
         onChange={(e) => setSelectedCategory(e.target.value)}
       >
         <option value="">All Categories</option>
-        {categories.map((category, index) => (
+        {categories?.map((category: API.Category, index: number) => (
           <option key={index} value={category.category_id}>
             {category.name}
           </option>
