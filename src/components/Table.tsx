@@ -1,5 +1,7 @@
 import cn from "classnames";
 import { API } from "../api/types";
+import { selectCurrency } from '../app/appSlice';
+import { useAppSelector } from '../app/hooks';
 
 import "../styles/Table.scss";
 import { SkeletonRow, SkeletonImage } from "./Skeleton";
@@ -39,6 +41,8 @@ const TableSkeleton = () => {
 };
 
 const Table = ({ coins, isLoading }: TableProps) => {
+  const currency = useAppSelector(selectCurrency);
+
   return (
     <table className="Table">
       <thead>
@@ -71,7 +75,7 @@ const Table = ({ coins, isLoading }: TableProps) => {
               <td className="price">
                 {new Intl.NumberFormat("en-US", {
                   style: "currency",
-                  currency: "USD",
+                  currency,
                   maximumFractionDigits: 6,
                 }).format(coin.current_price)}
               </td>

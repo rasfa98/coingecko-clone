@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useCategories, useCoins } from "./api";
-import { API } from "./api/types";
 import Alert from "./components/Alert";
 import Layout from "./components/Layout";
 import Table from "./components/Table";
+import Toolbar from "./components/Toolbar";
 import { removeAlert, selectAlerts } from "./app/appSlice";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 
@@ -16,7 +16,7 @@ function App() {
     useCoins(selectedCategory);
   const { data: categories, isFetching: isLoadingCategories } = useCategories();
   const alerts = useAppSelector(selectAlerts);
-  
+
   const dispatch = useAppDispatch();
 
   const isLoading = isLoadingCoins || isLoadingCategories;
@@ -34,19 +34,11 @@ function App() {
 
       <h1>Top cryptocurrencies {new Date().getFullYear()}</h1>
 
-      <label htmlFor="category">Category</label>
-      <select
-        name="category"
-        value={selectedCategory || ""}
-        onChange={(e) => setSelectedCategory(e.target.value)}
-      >
-        <option value="">All Categories</option>
-        {categories?.map((category: API.Category, index: number) => (
-          <option key={index} value={category.category_id}>
-            {category.name}
-          </option>
-        ))}
-      </select>
+      <Toolbar
+        categories={categories}
+        onSelectCategory={(category: string) => setSelectedCategory(category)}
+        selectedCategory={selectedCategory}
+      />
       <Table coins={coins} isLoading={isLoading} />
     </Layout>
   );
