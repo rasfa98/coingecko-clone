@@ -32,7 +32,7 @@ function App() {
         />
       )}
 
-      <h1>Top cryptocurrencies {new Date().getFullYear()}</h1>
+      <h1>CoinGecko Clone</h1>
 
       <Toolbar
         categories={categories}
