@@ -25,4 +25,4 @@ A lot of things can be done, feel free to open a pull request :)
 
 - Add polling in order to update list every X seconds
 - Add search functionality
-- Display sparkline for 7 day changes 
+- Improve design on mobile devices
