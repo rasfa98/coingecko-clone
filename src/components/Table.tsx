@@ -4,6 +4,7 @@ import { selectCurrency } from "../app/appSlice";
 import { useAppSelector } from "../app/hooks";
 import { SkeletonRow, SkeletonImage } from "./Skeleton";
 import Sparkline from "./Sparkline";
+import getSparklineColor from "../utils/getSparklineColor";
 
 import "../styles/Table.scss";
 
@@ -121,14 +122,7 @@ const Table = ({ coins, isLoading }: TableProps) => {
                 {coin.sparkline_in_7d.price.length > 0 ? (
                   <Sparkline
                     data={coin.sparkline_in_7d.price}
-                    color={
-                      coin.sparkline_in_7d.price[0] <
-                      coin.sparkline_in_7d.price[
-                        coin.sparkline_in_7d.price.length - 1
-                      ]
-                        ? "#04aa6d"
-                        : "#f44336"
-                    }
+                    color={getSparklineColor(coin.sparkline_in_7d.price)}
                   />
                 ) : (
                   "-"

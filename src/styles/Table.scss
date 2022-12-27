@@ -1,3 +1,5 @@
+@import "colors.module";
+
 .Table {
   border-collapse: collapse;
   margin-top: 10px;
@@ -57,11 +59,11 @@
     }
 
     &.red {
-      color: #f44336;
+      color: $red;
     }
 
     &.green {
-      color: #04aa6d;
+      color: $green;
     }
   }
 }
