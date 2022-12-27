@@ -1,24 +1,34 @@
 .Table {
-  width: 100%;
-  overflow-x: auto;
   border-collapse: collapse;
   margin-top: 10px;
+  table-layout: fixed;
+
+  thead {
+    tr {
+      height: 45px;
+    }
+  }
+
+  tbody {
+    tr {
+      height: 60px;
+    }
+  }
 
   tr {
-    height: 45px;
     border-bottom: 0.5px solid rgb(146, 146, 146);
   }
 
   th,
   td {
-    padding: 5px;
+    padding: 0 5px;
     text-align: left;
   }
 
   th,
   td {
     &.coin {
-      width: 40%;
+      width: 400px;
 
       div {
         display: flex;
@@ -33,13 +43,17 @@
     }
 
     &.price {
-      width: 20%;
+      width: 200px;
     }
 
     &.change1h,
     &.change24h,
     &.change7d {
-      width: 10%;
+      width: 100px;
+    }
+
+    &.last7days {
+      width: 200px;
     }
 
     &.red {

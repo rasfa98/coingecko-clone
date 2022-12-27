@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { selectCurrency } from '../app/appSlice';
-import { useAppSelector } from '../app/hooks';
+import { selectCurrency } from "../app/appSlice";
+import { useAppSelector } from "../app/hooks";
 import { API } from "./types";
 
 export const api = createApi({
@@ -9,11 +9,15 @@ export const api = createApi({
   }),
   tagTypes: ["Coin", "Category"],
   endpoints: (build) => ({
-    getCoins: build.query<API.Coin[], { categoryId?: string, currency: string }>({
+    getCoins: build.query<
+      API.Coin[],
+      { categoryId?: string; currency: string }
+    >({
       query: ({ currency, categoryId }) =>
         `/coins/markets?${new URLSearchParams({
           vs_currency: currency,
           price_change_percentage: "1h,24h,7d",
+          sparkline: "true",
           ...(categoryId ? { category: categoryId } : {}),
         }).toString()}`,
       providesTags: ["Coin"],
@@ -27,7 +31,7 @@ export const api = createApi({
 
 export const useCoins = (categoryId?: string) => {
   const currency = useAppSelector(selectCurrency);
-  
+
   return api.useGetCoinsQuery({ categoryId, currency });
 };
 

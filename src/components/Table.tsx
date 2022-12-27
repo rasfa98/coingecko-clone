@@ -1,10 +1,11 @@
 import cn from "classnames";
 import { API } from "../api/types";
-import { selectCurrency } from '../app/appSlice';
-import { useAppSelector } from '../app/hooks';
+import { selectCurrency } from "../app/appSlice";
+import { useAppSelector } from "../app/hooks";
+import { SkeletonRow, SkeletonImage } from "./Skeleton";
+import Sparkline from "./Sparkline";
 
 import "../styles/Table.scss";
-import { SkeletonRow, SkeletonImage } from "./Skeleton";
 
 type TableProps = {
   coins?: API.Coin[];
@@ -34,6 +35,9 @@ const TableSkeleton = () => {
           <td className="change7d">
             <SkeletonRow />
           </td>
+          <td className="last7days">
+            <SkeletonRow />
+          </td>
         </tr>
       ))}
     </tbody>
@@ -52,6 +56,7 @@ const Table = ({ coins, isLoading }: TableProps) => {
           <th className="change1h">1h</th>
           <th className="change24h">24h</th>
           <th className="change7d">7d</th>
+          <th className="last7days">Last 7 Days</th>
         </tr>
       </thead>
 
@@ -64,7 +69,7 @@ const Table = ({ coins, isLoading }: TableProps) => {
               <td className="coin">
                 <div>
                   <img
-                    loading='lazy'
+                    loading="lazy"
                     width={20}
                     height={20}
                     src={coin.image}
@@ -86,7 +91,9 @@ const Table = ({ coins, isLoading }: TableProps) => {
                   green: coin.price_change_percentage_1h_in_currency > 0,
                 })}
               >
-                {coin.price_change_percentage_1h_in_currency ? `${coin.price_change_percentage_1h_in_currency.toFixed(2)}%` : '-'}
+                {coin.price_change_percentage_1h_in_currency
+                  ? `${coin.price_change_percentage_1h_in_currency.toFixed(2)}%`
+                  : "-"}
               </td>
               <td
                 className={cn("change24h", {
@@ -94,7 +101,11 @@ const Table = ({ coins, isLoading }: TableProps) => {
                   green: coin.price_change_percentage_24h_in_currency > 0,
                 })}
               >
-                {coin.price_change_percentage_24h_in_currency ? `${coin.price_change_percentage_24h_in_currency.toFixed(2)}%` : '-'}
+                {coin.price_change_percentage_24h_in_currency
+                  ? `${coin.price_change_percentage_24h_in_currency.toFixed(
+                      2
+                    )}%`
+                  : "-"}
               </td>
               <td
                 className={cn("change7d", {
@@ -102,7 +113,26 @@ const Table = ({ coins, isLoading }: TableProps) => {
                   green: coin.price_change_percentage_7d_in_currency > 0,
                 })}
               >
-                {coin.price_change_percentage_7d_in_currency ? `${coin.price_change_percentage_7d_in_currency.toFixed(2)}%` : '-'}
+                {coin.price_change_percentage_7d_in_currency
+                  ? `${coin.price_change_percentage_7d_in_currency.toFixed(2)}%`
+                  : "-"}
+              </td>
+              <td className="last7days">
+                {coin.sparkline_in_7d.price.length > 0 ? (
+                  <Sparkline
+                    data={coin.sparkline_in_7d.price}
+                    color={
+                      coin.sparkline_in_7d.price[0] <
+                      coin.sparkline_in_7d.price[
+                        coin.sparkline_in_7d.price.length - 1
+                      ]
+                        ? "#04aa6d"
+                        : "#f44336"
+                    }
+                  />
+                ) : (
+                  "-"
+                )}
               </td>
             </tr>
           ))}
